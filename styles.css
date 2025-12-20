@@ -63,8 +63,9 @@ button:hover {
 }
 
 #coolText {
+  color: #f8f7f7;
   font-size: 32px;
   font-weight: bold;
-  opacity: 0; /* hidden at start */
+  opacity: 1; /* hidden at start */
 }
 

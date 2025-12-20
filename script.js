@@ -105,6 +105,7 @@ function createParticleBurst() {
     particle.classList.add("particle");
     document.body.appendChild(particle);
 
+    
     // Initial state
     gsap.set(particle, { 
       x: centerX, 
