@@ -23,10 +23,12 @@ gsap.set(letters, { opacity: 0, x: 20 });
 // ===== Move, Fade, Pop, Spin, Burst Buttons =====
 // (Keep your existing code for these as it was working!)
 
-// ===== Text Button (Updated) =====
+// ===== Text Button (Fixed & Polished) =====
 document.getElementById("textBtn").addEventListener("click", () => {
-  // Use the 'letters' we defined during setup
+  const letters = text.querySelectorAll("span");
+
   if (!textShown) {
+    // 1. Entrance Animation
     gsap.to(letters, {
       opacity: 1,
       x: 0,
@@ -34,26 +36,30 @@ document.getElementById("textBtn").addEventListener("click", () => {
       duration: 0.4,
       ease: "power2.out",
       onStart: () => {
+        // 2. Individual Letter Flicker
         gsap.to(letters, {
-          color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-          textShadow: "0 0 10px #12ecda, 0 0 20px #12ecda",
+          color: () => `hsl(${Math.random() * 360}, 80%, 70%)`, 
+          textShadow: () => `0 0 10px hsl(${Math.random() * 360}, 80%, 70%)`,
           repeat: 3,
           yoyo: true,
           duration: 0.1,
           stagger: 0.05
         });
       }
-    });
+    }); // <--- This closes the Entrance Animation
   } else {
+    // 3. Exit Animation
     gsap.to(letters, {
       opacity: 0,
       x: -20,
       stagger: 0.02,
       duration: 0.3,
-      textShadow: "0 0 0px #fff",
+      // Randomize the glow one last time as it vanishes
+      textShadow: () => `0 0 20px hsl(${Math.random() * 360}, 70%, 60%)`,
       ease: "power2.in"
     });
   }
+  
   textShown = !textShown;
 });
 
