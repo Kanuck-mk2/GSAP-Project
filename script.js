@@ -1,5 +1,6 @@
-// Make sure this is at the top
+
 const box = document.getElementById("box");
+const text = document.getElementById("coolText"); // Define this globally!
 
 // Toggle states
 let moved = false;
@@ -8,6 +9,55 @@ let popped = false;
 let rotation = 0;
 let textShown = false;
 
+// 1. SETUP: Split text into spans immediately on load
+// This turns "GSAP" into <span>G</span><span>S</span>...
+text.innerHTML = text.textContent
+  .split("")
+  .map(char => `<span>${char === " " ? "&nbsp;" : char}</span>`)
+  .join("");
+
+// Hide the spans initially so they can "animate in"
+const letters = text.querySelectorAll("span");
+gsap.set(letters, { opacity: 0, x: 20 });
+
+// ===== Move, Fade, Pop, Spin, Burst Buttons =====
+// (Keep your existing code for these as it was working!)
+
+// ===== Text Button (Updated) =====
+document.getElementById("textBtn").addEventListener("click", () => {
+  // Use the 'letters' we defined during setup
+  if (!textShown) {
+    gsap.to(letters, {
+      opacity: 1,
+      x: 0,
+      stagger: 0.05,
+      duration: 0.4,
+      ease: "power2.out",
+      onStart: () => {
+        gsap.to(letters, {
+          color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+          textShadow: "0 0 10px #12ecda, 0 0 20px #12ecda",
+          repeat: 3,
+          yoyo: true,
+          duration: 0.1,
+          stagger: 0.05
+        });
+      }
+    });
+  } else {
+    gsap.to(letters, {
+      opacity: 0,
+      x: -20,
+      stagger: 0.02,
+      duration: 0.3,
+      textShadow: "0 0 0px #fff",
+      ease: "power2.in"
+    });
+  }
+  textShown = !textShown;
+});
+
+// (Keep your createParticleBurst function below)
 // ===== Move Button =====
 document.getElementById("moveBtn").addEventListener("click", () => {
   gsap.to(box, {
@@ -49,47 +99,11 @@ document.getElementById("spinBtn").addEventListener("click", () => {
   });
 });
 
+
+
+
 // ===== Burst Button =====
 document.getElementById("burstBtn").addEventListener("click", createParticleBurst);
-
-// ===== Text Button =====
-document.addEventListener("DOMContentLoaded", () => {
-  const box = document.getElementById("box");
-
-  // Your existing box button code...
-  // Move, Fade, Pop, Spin, Burst
-
-  // ===== Text setup =====
-  const text = document.getElementById("coolText");
-  text.innerHTML = text.textContent
-    .split("")
-    .map(char => `<span>${char}</span>`)
-    .join("");
-
-  gsap.from("#coolText span", {
-    opacity: 0,
-    x: 20,
-    stagger: 0.05,
-    duration: 0.5,
-    ease: "back.out(1.7)"
-  });
-
-  // Text toggle example (optional)
-  let textShown = true;
-  document.getElementById("textBtn").addEventListener("click", () => {
-    const letters = text.querySelectorAll("span");
-
-    gsap.to(letters, {
-      opacity: textShown ? 0 : 1,
-      x: textShown ? -20 : 0,
-      stagger: 0.05,
-      duration: 0.5,
-      ease: "back.out(1.7)"
-    });
-
-    textShown = !textShown;
-  });
-});
 
 //particle burst function
 function createParticleBurst() {
