@@ -35,7 +35,7 @@ function createBurst() {
         });
 
         // 3. THE BURST (Fly out from center)
-        const radius = gsap.utils.random(150, 450);
+        const radius = gsap.utils.random(-50, 150);
         
         gsap.to(letter, {
             x: radius,
