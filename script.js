@@ -35,12 +35,12 @@ function createBurst() {
         });
 
         // 3. THE BURST (Fly out from center)
-        const radius = gsap.utils.random(150, 350);
+        const radius = gsap.utils.random(150, 450);
         
         gsap.to(letter, {
             x: radius,
             opacity: 1,
-            rotation: gsap.utils.random(-780, 780), // Initial spin
+            rotation: gsap.utils.random(-70, 70), // Initial spin
             duration: gsap.utils.random(1, 2),
             ease: "expo.out",
             force3D: true // Forces GPU acceleration to prevent stutter
@@ -48,8 +48,8 @@ function createBurst() {
 
         // 4. THE CONTINUOUS ORBIT (The Parent "Pivot" rotates)
         gsap.to(pivot, {
-            rotation: "+=360",
-            duration: gsap.utils.random(15, 25), // Different speeds for drift
+            rotation: "+=760",
+            duration: gsap.utils.random(25, 55), // Different speeds for drift
             repeat: -1,
             ease: "none"
         });
@@ -57,7 +57,7 @@ function createBurst() {
         // 5. THE PULSE & WOBBLE (The Child "Letter" animates)
         gsap.to(letter, {
             scale: 1.4,
-            rotation: "+=45", // Small wobbling
+            rotation: "+=360", // Small wobbling
             backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`, // Color cycling
             repeat: -1,
             yoyo: true,
