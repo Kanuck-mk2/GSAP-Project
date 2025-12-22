@@ -54,18 +54,26 @@ function createBurst() {
             ease: "none"
         });
 
-    // 5. THE PULSE & WOBBLE (Optimized for Performance)
+// 5. THE PULSE & SCRAMBLE
 gsap.to(letter, {
     scale: 1.4,
     rotation: "+=360",
-    // We use hue-rotate to cycle colors smoothly without repainting
     filter: `hue-rotate(${gsap.utils.random(360, 720)}deg)`, 
-    boxShadow: `0 0 60px hsl(${gsap.utils.random(0, 360)}, 70%, 50%)`,
+    
+    // We update the shadow only at the start/end of the pulse to save CPU
+    boxShadow: `0 0 30px hsl(${gsap.utils.random(0, 360)}, 70%, 50%)`,
+    
     repeat: -1,
     yoyo: true,
-    duration: gsap.utils.random(1.5, 3), // Slower duration = smoother look
+    duration: gsap.utils.random(1.5, 3),
     ease: "sine.inOut",
-    force3D: true 
+    force3D: true,
+    
+    // THIS PART RANDOMIZES THE TEXT
+    onRepeat: function() {
+        // Change the letter every time the pulse loops
+        this.targets()[0].textContent = gsap.utils.random(chars);
+    }
 });
     }
 }
