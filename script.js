@@ -30,6 +30,7 @@ function createBurst() {
     gsap.to(letter, {
       x: radius,
       opacity: 1,
+      rotation : gsap.utils.random(-360, 360),
       duration: duration,
       ease: "expo.out"
     });
@@ -40,7 +41,7 @@ function createBurst() {
       rotation: "+=780",
       duration: gsap.utils.random(10, 20),
       repeat: -1,
-      borderRadius: "50%",
+      borderRadius: "100%",
       backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 70%, 60%)`,
       ease: "none"
     });
