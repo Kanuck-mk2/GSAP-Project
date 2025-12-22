@@ -54,18 +54,18 @@ function createBurst() {
             ease: "none"
         });
 
-        // 5. THE PULSE & WOBBLE (The Child "Letter" animates)
-        gsap.to(letter, {
-            scale: 1.4,
-            rotation: "+=360", // Small wobbling
-            backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`, // Color cycling
-            repeat: -1,
-            yoyo: true,
-            duration: gsap.utils.random(0.7, 1.5),
-            ease: "sine.inOut",
-            // Helper to keep the animation smooth on older screens
-            force3D: true 
-        });
+    // 5. THE PULSE & WOBBLE (Optimized for Performance)
+gsap.to(letter, {
+    scale: 1.4,
+    rotation: "+=360",
+    // We use hue-rotate to cycle colors smoothly without repainting
+    filter: `hue-rotate(${gsap.utils.random(360, 720)}deg)`, 
+    repeat: -1,
+    yoyo: true,
+    duration: gsap.utils.random(1.5, 3), // Slower duration = smoother look
+    ease: "sine.inOut",
+    force3D: true 
+});
     }
 }
 
