@@ -1,6 +1,8 @@
 const stage = document.getElementById('particle-stage');
 const btn = document.getElementById('burstBtn');
 const chars = 'GSAP-CORE-DATA-777-X0123456789%@#&*'.split('');
+const color1 = `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`;
+const color2 = `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`;
 
 function createBurst() {
   const count = 50;
@@ -25,12 +27,14 @@ function createBurst() {
       rotation: (i / count) * 360, // Distributes 50 letters evenly across 360 degrees
     });
 
-    gsap.set(letter, {
-      x: 0,
-      opacity: 0,
-      backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 70%, 50%)`,
-      borderRadius: '50%',
-    });
+ gsap.set(letter, { 
+    x: 0, 
+    opacity: 0,
+    // VITAL: Use a Template Literal to build the gradient string
+    backgroundImage: `linear-gradient(135deg, ${color1}, ${color2})`,
+    borderRadius: "50%",
+    border: "1px solid rgba(255,255,255,0.3)"
+});
 
     // --- VITAL: THE DEPTH ---
     const radius = gsap.utils.random(50, 250);
