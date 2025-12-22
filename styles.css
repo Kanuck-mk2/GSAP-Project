@@ -1,42 +1,53 @@
 body {
-  margin: 0;
-  background-color: #0a0a0a;
-  color: #00ffcc;
-  font-family: 'Courier New', monospace;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    margin: 0;
+    background-color: #050505;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
 }
 
 #particle-stage {
-  position: relative;
-  width: 0;
-  height: 0;
+    position: absolute;
+    /* Center point for all orbits */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pivot {
+    position: absolute;
+    width: 0;
+    height: 0;
+    will-change: transform;
 }
 
 .letter-particle {
-  position: absolute;
-  white-space: nowrap;
-  font-weight: bold;
-  user-select: none;
-  text-shadow: 0 0 8px #00ffcc;
-  margin: 0%;
+    position: absolute;
+    padding: 10px;
+    color: #020202;
+    font-weight: bold;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    /* This makes the background circles look like glowing badges */
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 20px;
+    will-change: transform, opacity;
 }
 
 #burstBtn {
-  z-index: 10;
-  padding: 15px 30px;
-  background: transparent;
-  border: 2px solid #00ffcc;
-  color: #00ffcc;
-  cursor: pointer;
-  font-family: inherit;
-  transition: 0.3s;
-}
-
-#burstBtn:hover {
-  background: #00ffcc;
-  color: #0a0a0a;
+    z-index: 100;
+    padding: 15px 30px;
+    background: transparent;
+    border: 2px solid #00ffcc;
+    color: #00ffcc;
+    font-weight: bold;
+    cursor: pointer;
+    letter-spacing: 2px;
 }

@@ -1,66 +1,72 @@
 const stage = document.getElementById("particle-stage");
 const btn = document.getElementById("burstBtn");
-
-// Characters to use for the burst
-const chars = "GSAP-CIRCULAR-BURST-10101-MATH-ROTATION".split("");
+const chars = "GSAP-CORE-DATA-777-X".split("");
 
 function createBurst() {
-  const count = 100; // Total letters in the circle
-  
-  for (let i = 0; i < count; i++) {
-    // 1. Create a "pivot" div and a letter inside it
-    const pivot = document.createElement("div");
-    const letter = document.createElement("span");
+    const count = 50; 
     
-    pivot.className = "pivot";
-    letter.className = "letter-particle";
-    
-    letter.textContent = gsap.utils.random(chars);
-    pivot.appendChild(letter);
-    stage.appendChild(pivot);
+    // Hide button so it doesn't distract
+    gsap.to(btn, { opacity: 0, scale: 0, duration: 0.5 });
 
-    // 2. Setup initial state (all in center)
-    gsap.set(pivot, { position: "absolute", rotation: (i / count) * 360 });
-    gsap.set(letter, { x: 0, opacity: 0 });
+    for (let i = 0; i < count; i++) {
+        // 1. Setup Elements
+        const pivot = document.createElement("div");
+        const letter = document.createElement("span");
+        
+        pivot.className = "pivot";
+        letter.className = "letter-particle";
+        letter.textContent = gsap.utils.random(chars);
+        
+        pivot.appendChild(letter);
+        stage.appendChild(pivot);
 
-    // 3. THE BURST: Letters fly out to a random radius
-    const radius = gsap.utils.random(150, 300);
-    const duration = gsap.utils.random(1.5, 2.5);
-    
-    gsap.to(letter, {
-      x: radius,
-      opacity: 1,
-      rotation : gsap.utils.random(-360, 360),
-      duration: duration,
-      ease: "expo.out"
-    });
+        // 2. Initial Positioning (Perfect Circle Distribution)
+        // Spread the pivots evenly in a 360-degree circle
+        gsap.set(pivot, { 
+            rotation: (i / count) * 360 
+        });
+        
+        // Hide letters in the center initially
+        gsap.set(letter, { 
+            x: 0, 
+            opacity: 0,
+            backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 70%, 50%)`,
+            borderRadius: "50%"
+        });
 
-    // 4. THE ORBIT: The pivot rotates forever
-    // We use a different duration for each so they "drift" apart
-    gsap.to(pivot, {
-      rotation: "+=780",
-      duration: gsap.utils.random(10, 20),
-      repeat: -1,
-      borderRadius: "100%",
-      backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 70%, 60%)`,
-      ease: "none"
-    });
+        // 3. THE BURST (Fly out from center)
+        const radius = gsap.utils.random(150, 350);
+        
+        gsap.to(letter, {
+            x: radius,
+            opacity: 1,
+            rotation: gsap.utils.random(-360, 360), // Initial spin
+            duration: gsap.utils.random(1, 2),
+            ease: "expo.out",
+            force3D: true // Forces GPU acceleration to prevent stutter
+        });
 
-    // 5. THE PULSE: Make the letters flicker or scale
-    gsap.to(letter, {
-      scale: 1.5,
-      rotation: gsap.utils.random(-65, 45),
-      repeat: -1,
-      yoyo: true,
-      borderRadius: "100%",
-      duration: gsap.utils.random(0.5, 1.5),
-      backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 70%, 60%)`,
-      ease: "sine.inOut"
-    });
-  }
-  
-  // Hide button after burst for the "pure" visual
-  gsap.to(btn, { opacity: 1, pointerEvents: "none" });
+        // 4. THE CONTINUOUS ORBIT (The Parent "Pivot" rotates)
+        gsap.to(pivot, {
+            rotation: "+=360",
+            duration: gsap.utils.random(15, 25), // Different speeds for drift
+            repeat: -1,
+            ease: "none"
+        });
+
+        // 5. THE PULSE & WOBBLE (The Child "Letter" animates)
+        gsap.to(letter, {
+            scale: 1.4,
+            rotation: "+=45", // Small wobbling
+            backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`, // Color cycling
+            repeat: -1,
+            yoyo: true,
+            duration: gsap.utils.random(0.7, 1.5),
+            ease: "sine.inOut",
+            // Helper to keep the animation smooth on older screens
+            force3D: true 
+        });
+    }
 }
 
 btn.addEventListener("click", createBurst);
