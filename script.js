@@ -40,7 +40,7 @@ function createBurst() {
         gsap.to(letter, {
             x: radius,
             opacity: 1,
-            rotation: gsap.utils.random(-360, 360), // Initial spin
+            rotation: gsap.utils.random(-780, 780), // Initial spin
             duration: gsap.utils.random(1, 2),
             ease: "expo.out",
             force3D: true // Forces GPU acceleration to prevent stutter
