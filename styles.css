@@ -1,71 +1,42 @@
-/* Body setup */
 body {
-  background: #1a1a1a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  gap: 20px;
-  color: white;
-  font-family: Arial, sans-serif;
   margin: 0;
-}
-
-/* Box styling */
-#box {
-  width: 150px;
-  height: 150px;
-  background: #98057d;
-  border-radius: 12px;
-  border: 2px solid #12ecda;
-  box-shadow: 0 0 15px #ae08a1, 0 0 40px #12bdec;
-  transition: transform 0.3s ease;
-}
-
-#box:hover {
-  transform: scale(1.05);
-}
-
-/* Particle style */
-.particle {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: #0fd89c;
-  border-radius: 50%;
-  pointer-events: none;
-  box-shadow: 0 0 20px #f19b07;
-}
-
-/* Buttons container */
-.controls {
+  background-color: #0a0a0a;
+  color: #00ffcc;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
-/* Button styling */
-button {
-  padding: 10px 16px;
-  background: #213389;
-  border: 1px solid #12b2ec;
-  color: white;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 0 8px #12b2ec;
+#particle-stage {
+  position: relative;
+  width: 0;
+  height: 0;
 }
 
-button:hover {
-  background: #1266ec;
-  border-color: #12ec4c;
-  box-shadow: 0 0 10px #ec8612;
-}
-
-#coolText {
-  color: #f8f7f7;
-  font-size: 32px;
+.letter-particle {
+  position: absolute;
+  white-space: nowrap;
   font-weight: bold;
-  opacity: 1; /* hidden at start */
+  user-select: none;
+  text-shadow: 0 0 8px #00ffcc;
+  margin: 0%;
 }
 
+#burstBtn {
+  z-index: 10;
+  padding: 15px 30px;
+  background: transparent;
+  border: 2px solid #00ffcc;
+  color: #00ffcc;
+  cursor: pointer;
+  font-family: inherit;
+  transition: 0.3s;
+}
+
+#burstBtn:hover {
+  background: #00ffcc;
+  color: #0a0a0a;
+}

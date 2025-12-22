@@ -1,158 +1,65 @@
+const stage = document.getElementById("particle-stage");
+const btn = document.getElementById("burstBtn");
 
-const box = document.getElementById("box");
-const text = document.getElementById("coolText"); // Define this globally!
+// Characters to use for the burst
+const chars = "GSAP-CIRCULAR-BURST-10101-MATH-ROTATION".split("");
 
-// Toggle states
-let moved = false;
-let faded = true;
-let popped = false;
-let rotation = 0;
-let textShown = false;
-
-// 1. SETUP: Split text into spans immediately on load
-// This turns "GSAP" into <span>G</span><span>S</span>...
-text.innerHTML = text.textContent
-  .split("")
-  .map(char => `<span>${char === " " ? "&nbsp;" : char}</span>`)
-  .join("");
-
-// Hide the spans initially so they can "animate in"
-const letters = text.querySelectorAll("span");
-gsap.set(letters, { opacity: 0, x: 20 });
-
-// ===== Move, Fade, Pop, Spin, Burst Buttons =====
-// (Keep your existing code for these as it was working!)
-
-// ===== Text Button (Fixed & Polished) =====
-document.getElementById("textBtn").addEventListener("click", () => {
-  const letters = text.querySelectorAll("span");
-
-  if (!textShown) {
-    // 1. Entrance Animation
-    gsap.to(letters, {
-      opacity: 1,
-      x: 0,
-      stagger: 0.05,
-      duration: 0.4,
-      ease: "power2.out",
-      onStart: () => {
-        // 2. Individual Letter Flicker
-        gsap.to(letters, {
-          color: () => `hsl(${Math.random() * 360}, 80%, 70%)`, 
-          textShadow: () => `0 0 10px hsl(${Math.random() * 360}, 80%, 70%)`,
-          repeat: 3,
-          yoyo: true,
-          duration: 0.1,
-          stagger: 0.05
-        });
-      }
-    }); // <--- This closes the Entrance Animation
-  } else {
-    // 3. Exit Animation
-    gsap.to(letters, {
-      opacity: 0,
-      x: -20,
-      stagger: 0.02,
-      duration: 0.3,
-      // Randomize the glow one last time as it vanishes
-      textShadow: () => `0 0 20px hsl(${Math.random() * 360}, 70%, 60%)`,
-      ease: "power2.in"
-    });
-  }
+function createBurst() {
+  const count = 100; // Total letters in the circle
   
-  textShown = !textShown;
-});
-
-// (Keep your createParticleBurst function below)
-// ===== Move Button =====
-document.getElementById("moveBtn").addEventListener("click", () => {
-  gsap.to(box, {
-    x: moved ? 0 : 400,
-    y: moved ? 0 : -100,
-    duration: 1.7,
-    ease: "power2.out"
-  });
-  moved = !moved;
-});
-
-// ===== Fade Button =====
-document.getElementById("fadeBtn").addEventListener("click", () => {
-  gsap.to(box, {
-    opacity: faded ? 0 : 1,
-    duration: 0.7,
-    ease: "power1.out"
-  });
-  faded = !faded;
-});
-
-// ===== Pop Button =====
-document.getElementById("popBtn").addEventListener("click", () => {
-  gsap.to(box, {
-    scale: popped ? 1 : 1.5,
-    duration: 0.7,
-    ease: "back.out(2)"
-  });
-  popped = !popped;
-});
-
-// ===== Spin Button =====
-document.getElementById("spinBtn").addEventListener("click", () => {
-  rotation += 270;
-  gsap.to(box, {
-    rotation: rotation,
-    duration: 0.2,
-    ease: "power2.out"
-  });
-});
-
-
-
-
-// ===== Burst Button =====
-document.getElementById("burstBtn").addEventListener("click", createParticleBurst);
-
-//particle burst function
-function createParticleBurst() {
-  const rect = box.getBoundingClientRect();
-  // Get the true center of the box
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  
-  const particleCount = 100; // Reduced slightly for better performance
-
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement("div");
-    particle.classList.add("particle");
-    document.body.appendChild(particle);
-
+  for (let i = 0; i < count; i++) {
+    // 1. Create a "pivot" div and a letter inside it
+    const pivot = document.createElement("div");
+    const letter = document.createElement("span");
     
-    // Initial state
-    gsap.set(particle, { 
-      x: centerX, 
-      y: centerY, 
-      scale: Math.random() * 0.5 + 0.5, // Random sizes
-      backgroundColor: `hsl(${Math.random() * 360}, 70%, 60%)` // Random colors
+    pivot.className = "pivot";
+    letter.className = "letter-particle";
+    
+    letter.textContent = gsap.utils.random(chars);
+    pivot.appendChild(letter);
+    stage.appendChild(pivot);
+
+    // 2. Setup initial state (all in center)
+    gsap.set(pivot, { position: "absolute", rotation: (i / count) * 360 });
+    gsap.set(letter, { x: 0, opacity: 0 });
+
+    // 3. THE BURST: Letters fly out to a random radius
+    const radius = gsap.utils.random(150, 300);
+    const duration = gsap.utils.random(1.5, 2.5);
+    
+    gsap.to(letter, {
+      x: radius,
+      opacity: 1,
+      duration: duration,
+      ease: "expo.out"
     });
 
-    const angle = Math.random() * Math.PI * 2;
-    const dist = 100 + Math.random() * 200;
-
-    // Create a timeline for each particle
-    const tl = gsap.timeline({
-      onComplete: () => particle.remove()
+    // 4. THE ORBIT: The pivot rotates forever
+    // We use a different duration for each so they "drift" apart
+    gsap.to(pivot, {
+      rotation: "+=780",
+      duration: gsap.utils.random(10, 20),
+      repeat: -1,
+      borderRadius: "50%",
+      backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 70%, 60%)`,
+      ease: "none"
     });
 
-    tl.to(particle, {
-      x: centerX + Math.cos(angle) * dist,
-      y: centerY + Math.sin(angle) * dist,
-      rotation: Math.random() * 360,
-      duration: 1.2,
-      ease: "power4.out"
-    })
-    .to(particle, {
-      opacity: 0,
-      scale: 0,
-      duration: 0.4
-    }, "-=0.4"); // Starts 0.4s before the previous animation ends (overlap)
+    // 5. THE PULSE: Make the letters flicker or scale
+    gsap.to(letter, {
+      scale: 1.5,
+      rotation: gsap.utils.random(-65, 45),
+      repeat: -1,
+      yoyo: true,
+      borderRadius: "100%",
+      duration: gsap.utils.random(0.5, 1.5),
+      backgroundColor: `hsl(${gsap.utils.random(0, 360)}, 70%, 60%)`,
+      ease: "sine.inOut"
+    });
   }
+  
+  // Hide button after burst for the "pure" visual
+  gsap.to(btn, { opacity: 1, pointerEvents: "none" });
 }
+
+btn.addEventListener("click", createBurst);
