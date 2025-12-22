@@ -35,7 +35,7 @@ function createBurst() {
         });
 
         // 3. THE BURST (Fly out from center)
-        const radius = gsap.utils.random(-50, 150);
+        const radius = gsap.utils.random(50, 250);
         
         gsap.to(letter, {
             x: radius,
@@ -60,6 +60,7 @@ gsap.to(letter, {
     rotation: "+=360",
     // We use hue-rotate to cycle colors smoothly without repainting
     filter: `hue-rotate(${gsap.utils.random(360, 720)}deg)`, 
+    boxShadow: `0 0 60px hsl(${gsap.utils.random(0, 360)}, 70%, 50%)`,
     repeat: -1,
     yoyo: true,
     duration: gsap.utils.random(1.5, 3), // Slower duration = smoother look
