@@ -3,9 +3,10 @@ const btn = document.getElementById('burstBtn');
 const chars = 'GSAP-CORE-DATA-777-X0123456789%@#&*'.split('');
 const color1 = `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`;
 const color2 = `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`;
+const color3 = `hsl(${gsap.utils.random(0, 360)}, 80%, 60%)`;
 
 function createBurst() {
-  const count = 50;
+  const count = 70;
 
   gsap.to(btn, { opacity: 0, scale: 0, duration: 0.5 });
 
@@ -31,7 +32,7 @@ function createBurst() {
     x: 0, 
     opacity: 0,
     // VITAL: Use a Template Literal to build the gradient string
-    backgroundImage: `linear-gradient(135deg, ${color1}, ${color2})`,
+    backgroundImage: `linear-gradient(135deg, ${color1}, ${color2}, ${color3})`,
     borderRadius: "50%",
     border: "1px solid rgba(255,255,255,0.3)"
 });

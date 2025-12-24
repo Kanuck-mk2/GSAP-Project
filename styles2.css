@@ -1,0 +1,108 @@
+/* 1. Global Reset & Dark Mode Base */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0a0a0b;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* 2. The Background Layer (Ready for GSAP) */
+#bg-visual {
+    position: fixed;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0a0a0b 80%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 3. Main Container Layout */
+#main-content {
+    width: 90%;
+    max-width: 800px;
+    padding: 40px 0;
+}
+
+.content-block {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px); /* Modern 'glass' effect */
+}
+
+/* 4. Progress Bar Styling */
+.progress-container {
+    width: 100%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    width: 100%;
+    height: 100%;
+    background: #00ffcc;
+    transform: scaleX(0); /* Controlled by GSAP */
+    transform-origin: left;
+}
+
+/* 5. Card Grid (The Interactive Part) */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: background 0.3s ease;
+}
+
+/* 6. Form & Toast Styling */
+#experiment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    background: #16161a;
+    border: 1px solid #333;
+    padding: 12px;
+    color: white;
+    border-radius: 6px;
+}
+
+button {
+    background: #00ffcc;
+    color: #000;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#status-message {
+    margin-top: 15px;
+    color: #00ffcc;
+    opacity: 0; /* Hidden initially for GSAP to reveal */
+    text-align: center;
+    font-size: 0.9rem;
+}
