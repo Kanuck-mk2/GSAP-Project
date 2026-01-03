@@ -59,15 +59,18 @@ body {
 
 /* 5. Card Grid (The Interactive Part) */
 .card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 80px;
+    margin: 0;  
 }
 
 .card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(0, 255, 204, 0.2);
+    margin: 0;
+    width: 150px;
+    height: 150px;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
