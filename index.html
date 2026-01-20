@@ -3,14 +3,45 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>GSAP Circular Burst</title>
-        <link rel="stylesheet" href="styles.css">
+        <title>GSAP Experiment 2 - Blank State</title>
+        <link rel="stylesheet" href="styles1.css">
     </head>
     <body>
-        <button type="button" id="burstBtn">INITIALIZE BURST</button>
-        <div id="particle-stage"></div>
+        <main id="main-content">
+            <div id="bg-visual"></div>
+            <section id="text-section" class="content-block">
+                <h1 class="content-title">Experiment Phase 2</h1>
+                <p class="text-content">This is a clean slate for testing new GSAP interactions. No particles, just pure structure.</p>
+                <div class="progress-container">
+                    <div id="progress-bar"></div>
+                </div>
+            </section>
+            <section id="list-section" class="content-block">
+                <h3 class="content-title">Project Goals</h3>
+                <ul class="text-content">
+                    <li>Master DOM manipulation with GSAP</li>
+                    <li>Explore timeline sequencing</li>
+                    <li>Implement clean UI transitions</li>
+                </ul>
+                <div class="card-grid">
+                    <div class="card">Item 1</div>
+                    <div class="card">Item 2</div>
+                    <div class="card">Item 3</div>
+                </div>
+            </section>
+            <section id="form-section" class="content-block">
+                <form id="experiment-form">
+                    <label for="user-input">Test Input:</label>
+                    <input type="text" id="user-input" placeholder="Enter something...">
+                    <input type="checkbox" id="test-checkbox">
+                    <label for="test-checkbox">Check me!</label>
+                    <input type="text" id="user-name" placeholder="Name">
+                    <button type="submit" id="submit-btn">Execute Action</button>
+                </form>
+                <div id="status-message">Action Successful!</div>
+            </section>
+        </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-        <script src="script.js"></script>
+        <script src="script1.js"></script>
     </body>
 </html>
-S

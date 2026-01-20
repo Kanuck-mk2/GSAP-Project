@@ -38,6 +38,16 @@ body {
     margin-bottom: 30px;
     backdrop-filter: blur(10px); /* Modern 'glass' effect */
 }
+.content-title {
+    font-size: 1.8rem;
+    color: #00ffcc;
+    text-align: center; 
+}
+
+.text-content{
+font-size: 1.1rem;
+text-align: center ;
+}
 
 /* 4. Progress Bar Styling */
 .progress-container {
@@ -49,6 +59,7 @@ body {
     overflow: hidden;
 }
 
+
 #progress-bar {
     width: 100%;
     height: 100%;
@@ -56,6 +67,7 @@ body {
     transform: scaleX(0); /* Controlled by GSAP */
     transform-origin: left;
 }
+
 
 /* 5. Card Grid (The Interactive Part) */
 .card-grid {
