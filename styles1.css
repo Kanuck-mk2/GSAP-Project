@@ -96,28 +96,3 @@ list-style: none;
     transition: background 0.3s ease;
 }
 
-/* 6. Form & Toast Styling */
-#experiment-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-input {
-    background: #16161a;
-    border: 1px solid #333;
-    padding: 12px;
-    color: white;
-    border-radius: 6px;
-}
-
-button {
-    background: #00ffcc;
-    color: #000;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
