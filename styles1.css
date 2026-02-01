@@ -93,6 +93,12 @@ list-style: none;
     padding: 20px;
     border-radius: 8px;
     text-align: center;
+    text-decoration: none;
     transition: background 0.3s ease;
 }
+.card:hover {
+    color: rgb(114, 194, 241);
+    
+}
+
 
